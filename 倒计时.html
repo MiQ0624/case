@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: cadetblue;
+            line-height: 200px;
+            margin: 100px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>倒计时</div>
+    <script>
+        var div = document.querySelector('div');
+        div.innerText = countDown('2021-3-27 00:00:00');
+
+        function countDown(stopDate) {
+            // var date = +new Date(),
+            //     sdate = +new Date(stopDate),
+            //     t = (sdate - date) / 1000;
+            // var d = parseInt(t / 60 / 60 / 24),
+            //     h = parseInt(t / 60 / 60 % 24),
+            //     m = parseInt(t / 60 % 60),
+            //     s = parseInt(t % 60);
+            // d = d < 10 ? '0' + d : d;
+            // h = h < 10 ? '0' + h : h;
+            // m = m < 10 ? '0' + m : m;
+            // s = s < 10 ? '0' + s : s;
+            // return '剩余' + d + '天' + h + '时' + m + '分' + s + '秒';
+
+            var date = +new Date(),
+                sdate = +new Date(stopDate);
+            // var t = (sdate - date) / 1000;
+            // var d = parseInt(((sdate - date) / 1000) / 60 / 60 / 24),
+            //     h = parseInt(((sdate - date) / 1000) / 60 / 60 % 24),
+            //     m = parseInt(((sdate - date) / 1000) / 60 % 60),
+            //     s = parseInt(((sdate - date) / 1000) % 60);
+            var d = parseInt(((sdate - date) / 1000) / 60 / 60 / 24) < 10 ? '0' + parseInt(((sdate - date) / 1000) / 60 / 60 / 24) : parseInt(((sdate - date) / 1000) / 60 / 60 / 24);
+            var h = parseInt(((sdate - date) / 1000) / 60 / 60 % 24) < 10 ? '0' + parseInt(((sdate - date) / 1000) / 60 / 60 % 24) : parseInt(((sdate - date) / 1000) / 60 / 60 % 24);
+            var mi = parseInt(((sdate - date) / 1000) / 60 % 60) < 10 ? '0' + parseInt(((sdate - date) / 1000) / 60 % 60) : parseInt(((sdate - date) / 1000) / 60 % 60);
+            var s = parseInt(((sdate - date) / 1000) % 60) < 10 ? '0' + parseInt(((sdate - date) / 1000) % 60) : parseInt(((sdate - date) / 1000) % 60);
+            return '剩余' + d + '天' + h + '时' + mi + '分' + s + '秒';
+        }
+        // console.log(countDown('2021-3-17 00:00:00'));
+    </script>
+</body>
+
+</html>

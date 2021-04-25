@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: black;
+        }
+        
+        .box {
+            width: 500px;
+            height: 100px;
+            margin: 300px auto;
+        }
+        
+        .now {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 30px;
+            margin-left: -50px;
+        }
+        
+        .time {
+            color: white;
+            font-size: 100px;
+        }
+        
+        span {
+            margin-right: 5px;
+        }
+        
+        button {
+            font-size: 24px;
+            /* width: 70px; */
+            /* height: 40px; */
+            /* border: 0;
+            border-radius: 18px; */
+            /* margin: 20px 40px; */
+            /* line-height: 40px; */
+            margin: 20px 20px 20px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="now"></div>
+        <div class="time">
+            <span class="hour">00</span>:
+            <span class="minute">00</span>:
+            <span class="second">00</span>
+        </div>
+        <button class="start">开始</button>
+        <button class="stop">暂停</button>
+        <button class="reset">重置</button>
+    </div>
+
+    <script>
+        var now = document.querySelector('.now');
+        var hour = document.querySelector('.hour');
+        var minute = document.querySelector('.minute');
+        var second = document.querySelector('.second');
+        var start = document.querySelector('.start');
+        var stop = document.querySelector('.stop');
+        var reset = document.querySelector('.reset');
+        var t = 0;
+        start.addEventListener('click', count);
+
+        function count() {
+            start.disabled = true;
+
+            var timer = setInterval(function() {
+                t++;
+                // console.log(t);
+                var h = parseInt(t / 60 / 60 % 24) < 10 ? '0' + parseInt(t / 60 / 60 % 24) : parseInt(t / 60 / 60 % 24);
+                var mi = parseInt(t / 60 % 60) < 10 ? '0' + parseInt(t / 60 % 60) : parseInt(t / 60 % 60);
+                var s = parseInt(t % 60) < 10 ? '0' + parseInt(t % 60) : parseInt(t % 60);
+                hour.innerHTML = h;
+                minute.innerHTML = mi;
+                second.innerHTML = s;
+                stop.addEventListener('click', function() {
+                    clearInterval(timer);
+                    start.disabled = false;
+                })
+
+            }, 1000)
+        }
+        reset.addEventListener('click', function() {
+            // 记录浏览历史，所以可以实现后退功能
+            // location.assign('http://www.itcast.cn');
+            // 不记录浏览历史，所以不可以实现后退功能
+            // location.replace('http://www.itcast.cn');
+            location.reload(true);
+        })
+        var date = new Date();
+        now.innerText = getDate();
+        setInterval(function() {
+            now.innerText = getDate();
+        }, 1000);
+
+        function getDate() {
+
+            var date = new Date();
+            var arr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+            var h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
+            var mi = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+            // var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+            return arr[date.getDay()] + '\t' + h + ':' + mi;
+        }
+    </script>
+</body>
+
+</html>

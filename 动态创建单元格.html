@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        /* table td {
+            padding: 10px;
+        } */
+        
+        table {
+            width: 300px;
+            text-align: center;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <table border="2" cellspacing="0">
+            <thead>
+                <tr>
+                    <td>姓名</td>
+                    <td>性别</td>
+                    <td>年龄</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <script>
+        var datas = [{
+            name: '花木兰',
+            sex: '女',
+            age: '18'
+        }, {
+            name: '赵云',
+            sex: '男',
+            age: '19'
+        }, {
+            name: '曹操',
+            sex: '男',
+            age: '20'
+        }, {
+            name: '虞姬',
+            sex: '女',
+            age: '18'
+        }];
+
+        var tbody = document.querySelector('tbody');
+        for (var i = 0; i < datas.length; i++) {
+            var tr = document.createElement('tr'); //添加行
+            tbody.appendChild(tr);
+            for (k in datas[i]) { //添加数据
+                var td = document.createElement('td');
+                td.innerHTML = datas[i][k];
+                tr.appendChild(td);
+            }
+            var td = document.createElement('td'); //添加删除
+            td.innerHTML = '<a href="#">删除</a>'; //此处不写javascript:;会导致删除功能失效，为什么？
+            tr.appendChild(td);
+        }
+
+        var as = document.querySelectorAll('a'); //删除功能
+        for (var i = 0; i < as.length; i++) {
+            as[i].onclick = function() {
+                tbody.removeChild(this.parentNode.parentNode);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>此页面文字禁止选中，此页面文字禁止选中，此页面文字禁止选中，此页面文字禁止选中，此页面文字禁止选中，此页面文字禁止选中</p>
+
+    <script>
+        document.addEventListener('selectstart', function(e) { //禁止选中事件
+            e.preventDefault();
+            console.log(e.target);
+        })
+        document.addEventListener('contextmenu', function(e) { //禁止鼠标右键事件
+            e.preventDefault();
+        })
+
+        // e.preventDefault();  阻止默认事件
+        // e.returnValue 阻止默认事件
+        // e.target  返回触发事件的对象
+        // e.srcElement  同上
+        // e.type
+        // e.consoleBubble   阻止冒泡
+        // e.stopPropagation()  同上
+    </script>
+</body>
+
+</html>

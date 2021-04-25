@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1 {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+        
+        .box2 {
+            position: absolute;
+            top: 80px;
+            width: 50px;
+            height: 50px;
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+
+    <script>
+        // setInterval(function() {
+        //     div.style.left = div.offsetLeft + 1 + 'px';
+        // }, 30)
+
+        function animate(obj, target, callback) {
+            obj.timer = setInterval(function() {
+                if (obj.offsetLeft < target) {
+                    obj.style.left = obj.offsetLeft + 1 + 'px';
+                } else {
+                    clearInterval(obj.timer); //通过obj.给不同元素记录不同的定时器，以解决定时器被同时停止
+                    //回调函数写在定时器结束里面
+                    if (callback) { //判断是否有回调函数
+                        callback(); //调用回调函数
+                    }
+
+                }
+                var step = (target - obj.offsetLeft) / 100; //通过递减函数添加缓动效果
+                // step = step > 0 ? Math.ceil(step) : Math.floor(step);//解决终点值取不到的问题
+                obj.style.left = obj.offsetLeft + step + 'px';
+            }, 30)
+        }
+
+        var box1 = document.querySelector('.box1');
+        var box2 = document.querySelector('.box2');
+        animate(box1, 400);
+        animate(box2, 800, function() {
+            alert('动画执行完了'); //回调函数
+        });
+    </script>
+</body>
+
+</html>

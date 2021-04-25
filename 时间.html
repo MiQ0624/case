@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div>显示时间</div>
+    <p>问候语</p>
+
+    <script>
+        var tim = document.querySelector('div');
+        var wh = document.querySelector('p');
+        tim.innerText = getDate();
+
+        // 封装一个获取时间的函数getDate()
+        function getDate() {
+            // var date = new Date();
+            // var y = date.getFullYear();
+            // var mo = date.getMonth();
+            // var d = date.getDate();
+            // var arr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            // var w = date.getDay();
+            // var h = date.getHours();
+            // var mi = date.getMinutes();
+            // var s = date.getSeconds();
+            // return y + '年' + mo + '月' + d + '日' + arr[w] + h + ':' + mi + ':' + s;
+
+            var date = new Date();
+            var arr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            var h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
+            var mi = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+            var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+            return date.getFullYear() + '年' + date.getMonth() + '月' + date.getDate() + '日\t' + arr[date.getDay()] + '\t' + h + ':' + mi + ':' + s;
+        }
+        var date = new Date();
+        var h = date.getHours < 10 ? '0' + date.getHours : date.getHours;
+        // 根据时间输出问候语
+        if (h < 12) {
+            wh.innerHTML = '上午好';
+        } else if (h < 18) {
+            wh.innerHTML = '下午好';
+        } else {
+            wh.innerHTML = '晚上好';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            width: 500px;
+            margin: 100px auto;
+        }
+        input{
+            display: block;
+        }
+        .box1{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="box1">
+             序号：<input type="text" class="num">
+             类别：<input type="text" class="kindipt">
+             商品名称：<input type="text" class="nam">
+             价格：<input type="text" class="pri">
+            <button class="sub">确定</button>
+        </div>
+        <button class="add">添加</button>
+        <div class="box2">
+            按商品名称查询：<input type="text" class="ser"><button class="search">查询</button><br>
+            按照类别查询：<input type="text" class="kind"><button class="kindbtn">查询</button>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>类别</td>
+                <td>商品名称</td>
+                <td>价格</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        
+        var tbody=document.querySelector('tbody');
+        var box1=document.querySelector('.box1');
+        var num=document.querySelector('.num');
+        var kindipt=document.querySelector('.kindipt')
+        var nam=document.querySelector('.nam');
+        var pri=document.querySelector('.pri');
+        var sub=document.querySelector('.sub');
+
+        var add=document.querySelector('.add');
+
+        var ser=document.querySelector('.ser');
+        var search=document.querySelector('.search');
+        var kind=document.querySelector('.kind');
+        var kindbtn=document.querySelector('.kindbtn');
+
+     
+  
+
+        var local=getDate();
+        var idd=local[local.length-1].id*1+1;
+        
+        setData(local);
+
+           //添加按钮
+        add.onclick=function(){
+            box1.style.display='block';
+            this.style.display='none';
+            num.value=idd;
+        }
+
+           //商品名称查询
+           search.addEventListener('click',function(){
+            const arr=[];
+            local.some(function(value){
+                if (value.pname==ser.value){
+                    arr.push(value);
+                }
+            })
+            setData(arr);  
+        })
+        //商品类别查询
+        kindbtn.addEventListener('click',function(){
+            const arr=[];
+            local.some(function(value){
+                if (value.kind==kind.value){
+                    arr.push(value);
+                }
+            })
+            setData(arr);  
+        })
+
+        //删除
+        var as=document.querySelectorAll('a');
+        for(let i=0;i<as.length;i++){//此处如果用var则console.log(i)始终等于length+1
+            as[i].onclick=function(){
+                local.splice(i, 1);
+              
+                saveDate(local);//为什么只能删一次？？？
+                setData(local);
+                alert('删除成功');
+            }
+        }
+
+        //添加商品信息
+        sub.addEventListener('click',function(){
+            local.push({ id: idd,kind:kindipt.value, pname: nam.value,price:pri.value });
+            console.log(local);
+            saveDate(local);
+            setData(local);
+        })
+
+        
+
+        function getDate() {//获取数据
+            var data = localStorage.getItem("goods");
+            if (data !== null) {
+            // 本地存储里面的数据是字符串格式的 但是我们需要的是对象格式的
+                return JSON.parse(data);
+            } else {
+                return [];
+            }
+        }
+        function setData(data){        //渲染数据
+            tbody.innerHTML='';
+            data.forEach(function(value){
+            var tr=document.createElement('tr');
+            tr.innerHTML='<td>'+value.id+'</td><td>'+value.kind+'</td><td>'+value.pname+'</td><td>'+value.price+'</td><td><a href="#">删除</a></td><td><span>修改</span></td>';
+            tbody.appendChild(tr);
+            })
+        }
+        function saveDate(data) {//保存数据
+            localStorage.setItem("goods", JSON.stringify(data));
+        }
+
+    </script>
+</body>
+</html>

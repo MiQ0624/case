@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>注意区别JS方法onfocus/onblur、value、placeholder三种方法获得焦点后提示文本的表现</h3>
+    <input type="text" value="获得焦点自动隐藏提示文本">
+    <input type="text" value="获得焦点内容无法自动消失">
+    <input type="text" placeholder="此处用的placeholder">
+
+    <script>
+        var inp = document.querySelector('input');
+        inp.style.color = '#757575';
+        inp.onfocus = function() {
+            if (inp.value === '获得焦点自动隐藏提示文本') {
+                inp.value = '';
+                this.style.color = '#ff0000';
+            }
+        }
+        inp.onblur = function() {
+            if (inp.value === '') {
+                inp.value = '获得焦点自动隐藏提示文本';
+                this.style.color = '#757575';
+            }
+        }
+    </script>
+</body>
+
+</html>

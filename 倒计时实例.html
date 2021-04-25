@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        div {
+            width: 300px;
+            margin: 100px auto;
+        }
+        /* span {
+            background-color: black;
+            color: white;
+            padding: 10px;     使用padding不好布局            
+            margin-left: 10px;
+        } */
+        
+        span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: black;
+            color: white;
+            line-height: 50px;
+            text-align: center;
+            margin: 3px;
+            margin-top: 20px;
+            /* span为什么会有默认的间距，如何清除 */
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>倒计时：</p>
+        <span class="day">天</span>
+        <span class="hour">时</span>
+        <span class="minute">分</span>
+        <span class="second">秒</span>
+    </div>
+    <script>
+        var day = document.querySelector('.day');
+        var hour = document.querySelector('.hour');
+        var minute = document.querySelector('.minute');
+        var second = document.querySelector('.second');
+
+        countDown(); //先调用一次避免初始白页
+        setInterval(countDown, 1000);
+
+        function countDown() {
+            var date = +new Date(),
+                sdate = +new Date('2021-3-27 00:00:00');
+
+            var d = parseInt(((sdate - date) / 1000) / 60 / 60 / 24) < 10 ? '0' + parseInt(((sdate - date) / 1000) / 60 / 60 / 24) : parseInt(((sdate - date) / 1000) / 60 / 60 / 24);
+            var h = parseInt(((sdate - date) / 1000) / 60 / 60 % 24) < 10 ? '0' + parseInt(((sdate - date) / 1000) / 60 / 60 % 24) : parseInt(((sdate - date) / 1000) / 60 / 60 % 24);
+            var mi = parseInt(((sdate - date) / 1000) / 60 % 60) < 10 ? '0' + parseInt(((sdate - date) / 1000) / 60 % 60) : parseInt(((sdate - date) / 1000) / 60 % 60);
+            var s = parseInt(((sdate - date) / 1000) % 60) < 10 ? '0' + parseInt(((sdate - date) / 1000) % 60) : parseInt(((sdate - date) / 1000) % 60);
+            // return '剩余' + d + '天' + h + '时' + mi + '分' + s + '秒';
+            day.innerHTML = d;
+            hour.innerHTML = h;
+            minute.innerHTML = mi;
+            second.innerHTML = s;
+
+        }
+    </script>
+</body>
+
+</html>

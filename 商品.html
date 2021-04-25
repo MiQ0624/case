@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        table{
+            margin:100px auto;
+            text-align: center;
+        }
+        td{
+            width: 200px;
+
+        }
+    </style>
+</head>
+<body>
+    <table border='2' cellspacing='0'>
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>名称</td>
+                <td>价格</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <div>按照价格查询：<input type="text" class="start"><button class='p-search'>查询</button></div>
+    <div class='result-p'>查询结果</div>
+    <div>按照商品名称查询：<input type="text" class="product"><button class='n-search'>查询</button></div>
+    <div class='result-n'>查询结果</div>
+
+    <script>
+        var alldata=[{id:1,pname:'烟',price:'20'},{id:2,pname:'酒',price:'80'},{id:3,pname:'花生',price:'5'},
+                    {id:4,pname:'瓜子',price:'30'},{id:5,pname:'糖',price:'2'}]
+        var tbody=document.querySelector('tbody');
+        start=document.querySelector('.start')
+        pbtn=document.querySelector('.p-search');
+        nbtn=document.querySelector('.n-search');
+        product=document.querySelector('.product');
+
+        // console.log(data);
+        //渲染数据
+        function setData(data){
+            tbody.innerHTML='';
+            data.forEach(function(value){
+            var tr=document.createElement('tr');
+            tr.innerHTML='<td>'+value.id+'</td><td>'+value.pname+'</td><td>'+value.price+'</td>';
+            tbody.appendChild(tr);
+        })
+        }
+        setData(alldata);
+
+        //查询
+        pbtn.addEventListener('click',function(){
+            var result1=alldata.filter(function(value){
+                return value.price>start.value;
+            })      
+            setData(result1);  
+        })
+
+        nbtn.addEventListener('click',function(){
+            var arr=[];
+            alldata.some(function(value){
+                if (value.pname==product.value){
+                    arr.push(value);
+                }
+            })
+            setData(arr);
+        })
+
+    </script>
+</body>
+</html>

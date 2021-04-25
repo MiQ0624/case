@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .small {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 10px auto;
+        }
+        
+        .mask {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background-color: chartreuse;
+            opacity: 0.5;
+        }
+        
+        .big {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 10px auto;
+            overflow: hidden;
+        }
+        
+        .small img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .bigImg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="small">
+        <img src="14.jpg" alt="">
+        <div class="mask"></div>
+    </div>
+
+    <div class="big">
+        <img src="14.jpg" alt="" class="bigImg">
+    </div>
+
+    <script>
+        var small = document.querySelector('.small');
+        var mask = document.querySelector('.mask');
+        var big = document.querySelector('.big');
+        var bigImg = document.querySelector('.bigImg');
+
+        // small.addEventListener('mouseover', function(e) {
+        small.addEventListener('mousemove', function(e) {
+                mask.style.left = e.pageX - this.offsetLeft - mask.offsetWidth / 2 + 'px'; //鼠标在盒子内的坐标就是mask定位的left值
+                mask.style.top = e.pageY - this.offsetTop - mask.offsetHeight / 2 + 'px';
+                //大盒子移动距离/大盒子最大移动距离=mask移动距离/mask最大移动距离
+                //最大移动距离=父盒子宽度-子盒子宽度
+                bigImg.style.left = -(e.pageX - this.offsetLeft) / (small.offsetWidth - mask.offsetWidth) * (bigImg.offsetWidth - big.offsetWidth) + 'px';
+                bigImg.style.top = -(e.pageY - this.offsetTop) / (small.offsetHeight - mask.offsetHeight) * (bigImg.offsetHeight - big.offsetHeight) + 'px';
+                // bigImg.style.left = -(e.pageX - this.offsetLeft) / 150 * 400 + 'px';
+                // bigImg.style.top = -(e.pageY - this.offsetTop) / 150 * 400 + 'px';
+                if (e.pageX - this.offsetLeft < 0) { //< mask.offsetWidth/2 更好
+                    mask.style.left = 0 + 'px';
+                }
+                if (e.pageX - this.offsetLeft > small.offsetWidth - mask.offsetWidth) {
+                    mask.style.left = small.offsetWidth - mask.offsetWidth + 'px';
+                }
+                if (e.pageY - this.offsetTop > small.offsetHeight - mask.offsetHeight) {
+                    mask.style.top = small.offsetHeight - mask.offsetHeight + 'px';
+                }
+                if (e.pageY - this.offsetTop < 0) { //< mask.offsetHeight/2 更好
+                    mask.style.top = 0 + 'px';
+                }
+
+
+            })
+            // })
+    </script>
+
+</body>
+
+</html>

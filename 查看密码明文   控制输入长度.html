@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 300px;
+            margin: 100px auto;
+        }
+        
+        p {
+            background: url(images/mess.png) no-repeat left center;
+            padding-left: 20px;
+        }
+        
+        .right {
+            color: green;
+            background: url(images/right.png) no-repeat left center;
+            padding-left: 20px;
+        }
+        
+        .wrong {
+            color: red;
+            background: url(images/wrong.png) no-repeat left center;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <p>请输入8-16位密码</p>
+        <input type="password" value="密码可视">
+        <button>切换密码明文</button>
+    </div>
+
+    <script>
+        var inp = document.querySelector('input');
+        var btn = document.querySelector('button');
+        var tip = document.querySelector('p');
+
+        // 切换输入框模式
+        var flag = 0;
+        btn.onclick = function() {
+            if (flag == 0) {
+                inp.type = "text";
+                // img.src='';
+                flag = 1;
+            } else {
+                inp.type = 'password';
+                // img.src='';
+                flag = 0;
+            }
+        }
+
+        // 控制文本框输入内容长度
+        inp.onblur = function() {
+            if (inp.value.length < 8 || inp.value.length > 16) {
+                tip.innerHTML = '! 密码位数不合法';
+                tip.className = 'wrong';
+            } else {
+                tip.innerHTML = '密码可用';
+                tip.className = 'right';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="uname"> <input type="checkbox" name="" id="remember"> 记住用户名
+    <script>
+        var uname = document.querySelector('#uname');
+        var rem = document.querySelector('#remember');
+        if (localStorage.getItem('uname')) {
+            uname.value = localStorage.getItem('uname');
+            rem.checked = true;
+        }
+        rem.addEventListener('change', function() {
+            if (this.checked) {
+                localStorage.setItem('uname', uname.value)
+            } else {
+                localStorage.removeItem('uname');
+            }
+        })
+    </script>
+</body>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        div {
+            width: 500px;
+            margin: 100px auto;
+        }
+        
+        li {
+            width: 50px;
+            height: 30px;
+            list-style: none;
+        }
+        
+        .nav>li {
+            position: relative;
+            float: left;
+            margin-left: 30px;
+        }
+        
+        .nav ul {
+            position: absolute;
+            top: 25px;
+            left: 0px;
+            display: none;
+        }
+        
+        .nav ul li {
+            height: 30px;
+            border: 1px #FFF5DA solid;
+            border-top: 0;
+            line-height: 30px;
+        }
+        
+        .nav li ul li:hover {
+            background-color: seagreen;
+        }
+        
+        span {
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <ul class="nav">
+            <li>
+                <span>导航一</span>
+                <ul>
+                    <li>内容一</li>
+                    <li>内容二</li>
+                    <li>内容三</li>
+                    <li>内容四</li>
+                    <li>内容五</li>
+                </ul>
+            </li>
+            <li>
+                <span>导航二</span>
+                <ul>
+                    <li>内容一</li>
+                    <li>内容二</li>
+                    <li>内容三</li>
+                    <li>内容四</li>
+                    <li>内容五</li>
+                </ul>
+            </li>
+            <li>
+                <span>导航三</span>
+                <ul>
+                    <li>内容一</li>
+                    <li>内容二</li>
+                    <li>内容三</li>
+                    <li>内容四</li>
+                    <li>内容五</li>
+                </ul>
+            </li>
+            <li>
+                <span>导航四</span>
+                <ul>
+                    <li>内容一</li>
+                    <li>内容二</li>
+                    <li>内容三</li>
+                    <li>内容四</li>
+                    <li>内容五</li>
+                </ul>
+            </li>
+            <li>
+                <span>导航五</span>
+                <ul>
+                    <li>内容一</li>
+                    <li>内容二</li>
+                    <li>内容三</li>
+                    <li>内容四</li>
+                    <li>内容五</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // var nav = document.querySelector('.nav');
+        // var lis = nav.children; //得到li
+        // for (var i = 0; i < lis.length; i++) {
+        //     lis[i].onmouseover = function() {
+        //         this.style.backgroundColor = '#eeeeee';
+        //         this.children[1].style.display = 'block';
+        //     }
+        //     lis[i].onmouseout = function() {
+        //         this.children[1].style.display = 'none';
+        //         this.style.backgroundColor = '';
+        //     }
+        // }
+
+        //JQ写法
+        $('.nav>li').mouseover(function() {
+            $(this).children("ul").show();
+        })
+        $('.nav>li').mouseout(function() {
+            $(this).children("ul").hide();
+
+        })
+    </script>
+</body>
+
+</html>

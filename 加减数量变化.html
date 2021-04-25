@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        商品1：
+        <p class="price">单价:12.5</p>
+        <button class="decrease">-</button>
+        <input type="text" class="num" value="1">
+        <button class="increase">+</button>
+        <p class="count">小计</p>
+    </div>
+
+    <div>
+        商品2：
+        <p class="price">单价:13.5</p>
+        <button class="decrease">-</button>
+        <input type="text" class="num" value="1">
+        <button class="increase">+</button>
+        <p class="count">小计:</p>
+    </div>
+
+</body>
+<script>
+    $('.increase').click(function() {
+        var n = $(this).siblings(".num").val();
+        n++;
+        $(this).siblings(".num").val(n);
+    })
+    $('.decrease').click(function() {
+        var n = $(this).siblings('.num').val();
+        if (n > 1) {
+            n--;
+            $(this).siblings('.num').val(n);
+        } else {
+            alert('商品数量至少为1');
+        }
+    })
+
+    $('button').click(function() {
+        var n = $(this).siblings(".num").val();
+        console.log(n);
+        var p = $(this).siblings('.price').html();
+        p = p.substr(3);
+        console.log(p * n);
+    })
+</script>
+
+</html>

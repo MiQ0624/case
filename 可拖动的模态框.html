@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .fatheer {
+            position: relative;
+        }
+        
+        .box {
+            position: absolute;
+            left: 500px;
+            width: 300px;
+            height: 300px;
+            background-color: thistle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <div class="box"></div>
+    </div>
+
+
+    <script>
+        var box = document.querySelector('.box');
+        box.addEventListener('mousedown', function(e) {
+            var x = e.pageX - box.offsetLeft;
+            var y = e.pageY - box.offsetTop;
+            document.addEventListener('mousemove', move)
+
+            function move(e) {
+                box.style.left = e.pageX - x + 'px';
+                box.style.top = e.pageY - y + 'px';
+            }
+
+            document.addEventListener('mouseup', function() {
+                document.removeEventListener('mousemove', move);
+            })
+        })
+    </script>
+</body>
+
+</html>

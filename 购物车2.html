@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .check-bg {
+            background-color: crimson;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- js全选 -->
+
+
+
+    <!-- 为什么设置cellpadding无效？ -->
+    <table border="1" width="800px" align="center" cellspacing="0" cellpadding="20">
+        <tr>
+            <td><input type="checkbox" id="checkAll">全选</td>
+            <td>商品名称</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>小计</td>
+            <td>操作</td>
+        </tr>
+        <tbody id="checks">
+            <tr>
+                <td><input type="checkbox" class="checkbox" id="checkbox">选取</td>
+                <td>语文书</td>
+                <td>
+                    <p class="price">单价:12.5</p>
+                </td>
+                <td class="crease"><button class="decrease">-</button>
+                    <input type="text" class="num" value="1">
+                    <button class="increase">+</button></td>
+                <td>
+                    <p class="count">0.00</p>
+                </td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="checkbox" id="checkbox">选取</td>
+                <td>数学书</td>
+                <td>
+                    <p class="price">单价:13.5</p>
+                </td>
+                <td class="crease"><button class="decrease">-</button>
+                    <input type="text" class="num" value="1">
+                    <button class="increase">+</button></td>
+                <td>
+                    <p class="count">0.00</p>
+                </td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="checkbox" id="checkbox">选取</td>
+                <td>英语书</td>
+                <td>
+                    <p class="price">单价:15.5</p>
+                </td>
+                <td class="crease"><button class="decrease">-</button>
+                    <input type="text" class="num" value="1">
+                    <button class="increase">+</button></td>
+                <td>
+                    <p class="count">0.00</p>
+                </td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <p class="sum">总计：</p>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- js全选 -->
+    <script>
+        // var checkAll = document.getElementById('checkAll');
+        // var checks = document.getElementById('checks').getElementsByTagName('input');
+        // checkAll.onclick = function() {
+        //     for (var i = 0; i < checks.length; i++) {
+        //         checks[i].checked = checkAll.checked;
+        //     }
+        // }
+        // for (var i = 0; i < checks.length; i++) {
+        //     checks[i].onclick = function() {
+        //         for (var i = 0; i < checks.length; i++) {
+        //             // 如果checks[i].checked=true的反面，即checks[i].checked=false，即有任何一个没被选中
+        //             // if (!checks[i].checked) {
+        //             if (checks[i].checked == false) {
+        //                 checkAll.checked = false;
+        //                 break; // 不写break不行
+        //             } else {
+        //                 checkAll.checked = true;
+        //             }
+        //         }
+        //     }
+        // }
+    </script>
+
+    <script>
+        var s = 0;
+        $('#checkAll').change(function() {
+            $('.checkbox').prop("checked", $(this).prop("checked")); //下面的复选框跟随全选按钮
+            if ($(this).prop("checked") == true) {
+                $("#checks").addClass("check-bg");
+            } else {
+                $("#checks").removeClass("check-bg");
+            }
+        })
+        $('.checkbox').change(function() {
+            if ($('.checkbox:checked').length == $('.checkbox').length) { //当下面复选框选中的个数等于其长度时，全选框也选中
+                $('#checkAll').prop("checked", true);
+            } else {
+                $('#checkAll').prop("checked", false)
+            }
+            if ($(this).prop("checked")) {
+                $(this).parents('tr').addClass("check-bg");
+
+                var n = $(this).parent().siblings().children('input').val(); //n是商品数量
+                var p = $(this).parent().siblings().children('.price').html(); //p是单价：12.5
+                p = p.substr(3);
+                $(this).parent().siblings().children('.count').html((p * 1 * n).toFixed(2)); //n.toFixed()结果保留两位小数
+                s = s + p * 1 * n; //总计
+                $(this).parent().parent().siblings().children().children('.sum').html(s.toFixed(2));
+
+            } else {
+                $(this).parents('tr').removeClass('check-bg');
+            }
+        })
+
+
+        //商品数量加减模块
+        $('.increase').click(function() {
+            var n = $(this).siblings(".num").val();
+            n++;
+            $(this).siblings(".num").val(n);
+        })
+        $('.decrease').click(function() {
+                var n = $(this).siblings('.num').val();
+                if (n > 1) {
+                    n--;
+                    $(this).siblings('.num').val(n);
+                } else {
+                    alert('商品数量至少为1');
+                }
+            })
+            // var s = 0;
+            // $('button').click(function() {
+            //     var n = $(this).siblings('.num').val(); //n是商品数量
+            //     console.log(n);
+            //     var p = $(this).parent().siblings().children('.price').html(); //p是单价：12.5
+            //     p = p.substr(3);
+            //     $(this).parent().siblings().children('.count').html((p * 1 * n).toFixed(2)); //n.toFixed()结果保留两位小数
+            //     s = s + p * 1 * n; //总计
+            //     console.log(s);
+            //     $(this).parent().parent().siblings().children().children('.sum').html(s.toFixed(2));
+            // })
+
+        // $('.num').change(function() {
+        //     var n = $(this).val(); //n是商品数量
+        //     console.log(n);
+        //     var p = $(this).parent().siblings().children('.price').html(); //p是单价：12.5
+        //     p = p.substr(3);
+        //     $(this).parent().siblings().children('.count').html((p * 1 * n).toFixed(2));
+        // })
+    </script>
+</body>
+
+</html>
